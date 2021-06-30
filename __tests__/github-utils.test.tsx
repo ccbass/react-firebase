@@ -1,4 +1,4 @@
-import { fetchGitHubUser } from "./github-utils"
+import { fetchGitHubUser } from "../src/utilities/github-utils"
 
 describe('github fetch tests', () => {
   it('correctly fetches a user from github', async () => {

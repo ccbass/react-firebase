@@ -3,16 +3,21 @@ import './Controls.css'
 
 type ControlsProps = {
   setUserInput: Function,
-  handleUserInput: Function
+  handleUserInput: Function,
+  userInput: string
 };
 
 
-function Controls({ setUserInput, handleUserInput }: ControlsProps) {
+function Controls({ setUserInput, handleUserInput, userInput }: ControlsProps) {
   return (
     <div>
+      <label htmlFor="user-input">Search GitHub Users:</label>
+      <br />
       <input 
         type="text" 
-        aria-label="user-search-input"
+        id="user-input"
+        aria-label="user-search-text-input"
+        value={userInput}
         onChange={ (e) => setUserInput(e.target.value) }
         onKeyUp={(e) => handleUserInput(e.key)}
       />

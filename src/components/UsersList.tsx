@@ -9,7 +9,7 @@ type ListProps = {
 function UsersList({ users }: ListProps) {
   if(users){
     return (
-      <div>
+      <div className='users-grid-container'>
         <div className='users-grid'>
           <div>Username</div>
           <div>Display Name</div>

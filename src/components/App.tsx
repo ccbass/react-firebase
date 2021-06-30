@@ -18,6 +18,7 @@ function App() {
         const firestoreUser = await createFirestoreUser(newUser)
         if(firestoreUser.id){
           setNotification('User found/added to Firestore.')
+          setUserInput('')
         }
       }
       if(!newUser){
@@ -27,7 +28,7 @@ function App() {
   }
 
   useEffect(() => {
-    const unsubscribe = streamFirestoreUsers({
+    const userStream = streamFirestoreUsers({
         next: (updatedSnapshot: any) => {
           const updatedUsers = updatedSnapshot.docs
             .map((updatedDocument: any) => updatedDocument.data());
@@ -36,7 +37,7 @@ function App() {
         error: () => setNotification('Error streaming updated users from Firestore.')
     });
 
-    return () => unsubscribe();
+    return () => userStream();
 
   }, []);
 
@@ -50,7 +51,8 @@ function App() {
       <main>
         <section className='input-container'>
           <Controls 
-            setUserInput={setUserInput} 
+            setUserInput={setUserInput}
+            userInput={userInput} 
             handleUserInput={handleUserInput} 
           />
           <p>{notification}</p>
