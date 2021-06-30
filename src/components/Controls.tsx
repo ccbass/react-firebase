@@ -1,9 +1,20 @@
 import React from 'react';
 
-function Controls() {
+type ControlsProps = {
+  setUserInput: Function,
+  handleUserInput: Function
+};
+
+
+function Controls({ setUserInput, handleUserInput }: ControlsProps) {
   return (
     <div>
-      <input type="text" />
+      <input 
+        type="text" 
+        aria-label="user-search-input"
+        onChange={ (e) => setUserInput(e.target.value) }
+        onKeyUp={(e) => handleUserInput(e.key)}
+      />
     </div>
   );
 }
