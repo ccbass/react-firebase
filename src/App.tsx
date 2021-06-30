@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import Controls from './components/Controls';
 import UsersList from './components/UsersList';
-import { createFirestoreUser } from './utilities/firestore-utils';
+import { createFirestoreUser, streamFirestoreUsers } from './utilities/firestore-utils';
 import { fetchGitHubUser } from './utilities/github-utils';
 
 function App() {
   const [userInput, setUserInput] = useState('');
+  const [users, setUsers] = useState([]);
   const [notification, setNotification] = useState('')
 
 
@@ -19,12 +20,26 @@ function App() {
           setNotification('User found/added to Firestore.')
         }
       }
-      
       if(!newUser){
         setNotification('No GitHub user with that username.')
       }
     }
   }
+
+  useEffect(() => {
+    const unsubscribe = streamFirestoreUsers({
+        next: (updatedSnapshot: any) => {
+          const updatedUsers = updatedSnapshot.docs
+            .map((updatedDocument: any) => updatedDocument.data());
+          setUsers(updatedUsers);
+        },
+        error: () => setNotification('Error streaming updated users from Firestore.')
+    });
+
+    return () => unsubscribe();
+
+  }, []);
+
 
   return (
     <div>
@@ -45,7 +60,7 @@ function App() {
 
         <section>
           <h3>Matching Users:</h3>
-          <UsersList />
+          <UsersList users={users}/>
         </section>
 
 

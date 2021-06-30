@@ -5,7 +5,7 @@ import { firestoreDatabase } from "../services/firestore";
 type userProps = {
   login: string;
   id: number;
-  url: string;
+  html_url: string;
   name: string | undefined;
   public_repos: number;
   public_gists: number;
@@ -17,7 +17,7 @@ type userProps = {
 export const createFirestoreUser = async ({
   login,
   id,
-  url,
+  html_url,
   name,
   public_repos,
   public_gists,
@@ -31,7 +31,7 @@ export const createFirestoreUser = async ({
       date_added_to_fs: firebase.firestore.FieldValue.serverTimestamp(),
       login,
       id,
-      url,
+      html_url,
       name,
       public_repos,
       public_gists,
