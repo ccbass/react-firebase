@@ -1,4 +1,5 @@
 import React from 'react';
+import './Controls.css'
 
 type ControlsProps = {
   setUserInput: Function,

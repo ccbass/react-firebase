@@ -46,25 +46,22 @@ function App() {
       <header>
         <h1>Github/Firestore User List</h1>
       </header>
-      <main>
 
-        <section>
+      <main>
+        <section className='input-container'>
           <Controls 
             setUserInput={setUserInput} 
             handleUserInput={handleUserInput} 
           />
-          
-          {notification}
-
+          <p>{notification}</p>
         </section>
 
         <section>
-          <h3>Matching Users:</h3>
+          <h3>User List:</h3>
           <UsersList users={users}/>
         </section>
-
-
       </main>
+
     </div>
   );
 }
