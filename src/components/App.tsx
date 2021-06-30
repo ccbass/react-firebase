@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
-import Controls from './components/Controls';
-import UsersList from './components/UsersList';
-import { createFirestoreUser, streamFirestoreUsers } from './utilities/firestore-utils';
-import { fetchGitHubUser } from './utilities/github-utils';
+import Controls from './Controls';
+import UsersList from './UsersList';
+import { createFirestoreUser, streamFirestoreUsers } from '../utilities/firestore-utils';
+import { fetchGitHubUser } from '../utilities/github-utils';
 
 function App() {
   const [userInput, setUserInput] = useState('');
