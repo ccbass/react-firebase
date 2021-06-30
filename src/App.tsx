@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './App.css';
 import Controls from './components/Controls';
 import UsersList from './components/UsersList';
+import { createFirestoreUser } from './utilities/firestore-utils';
 import { fetchGitHubUser } from './utilities/github-utils';
 
 function App() {
@@ -13,10 +14,14 @@ function App() {
     if(key === 'Enter'){
       const newUser = await fetchGitHubUser(userInput)
       if(newUser){
-        // set to firebase
+        const firestoreUser = await createFirestoreUser(newUser)
+        if(firestoreUser.id){
+          setNotification('User found/added to Firestore.')
+        }
       }
+      
       if(!newUser){
-        setNotification('No GitHub user with that name.')
+        setNotification('No GitHub user with that username.')
       }
     }
   }
