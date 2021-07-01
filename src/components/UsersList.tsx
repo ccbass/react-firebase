@@ -10,6 +10,7 @@ function UsersList({ users }: ListProps) {
   if(users){
     return (
       <div className='users-grid-container'>
+        
         <div className='users-grid'>
           <div>Username</div>
           <div>Display Name</div>
@@ -19,6 +20,7 @@ function UsersList({ users }: ListProps) {
           <div>Following</div>
           <div>Date Joined</div>
         </div>
+
         {users
           .map( (user, index) => {
             const formattedDate = formatDate(user.created_at);
@@ -36,6 +38,7 @@ function UsersList({ users }: ListProps) {
             )
           })
         }
+
       </div>
     );
   }
