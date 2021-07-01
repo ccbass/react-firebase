@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
-import Controls from './components/Controls';
-import UsersList from './components/UsersList';
-import { createFirestoreUser, streamFirestoreUsers } from './utilities/firestore-utils';
-import { fetchGitHubUser } from './utilities/github-utils';
+import Controls from './Controls';
+import UsersList from './UsersList';
+import { createFirestoreUser, streamFirestoreUsers } from '../utilities/firestore-utils';
+import { fetchGitHubUser } from '../utilities/github-utils';
 
 function App() {
   const [userInput, setUserInput] = useState('');
@@ -18,6 +18,7 @@ function App() {
         const firestoreUser = await createFirestoreUser(newUser)
         if(firestoreUser.id){
           setNotification('User found/added to Firestore.')
+          setUserInput('')
         }
       }
       if(!newUser){
@@ -27,7 +28,7 @@ function App() {
   }
 
   useEffect(() => {
-    const unsubscribe = streamFirestoreUsers({
+    const userStream = streamFirestoreUsers({
         next: (updatedSnapshot: any) => {
           const updatedUsers = updatedSnapshot.docs
             .map((updatedDocument: any) => updatedDocument.data());
@@ -36,7 +37,7 @@ function App() {
         error: () => setNotification('Error streaming updated users from Firestore.')
     });
 
-    return () => unsubscribe();
+    return () => userStream();
 
   }, []);
 
@@ -46,25 +47,23 @@ function App() {
       <header>
         <h1>Github/Firestore User List</h1>
       </header>
-      <main>
 
-        <section>
+      <main>
+        <section className='input-container'>
           <Controls 
-            setUserInput={setUserInput} 
+            setUserInput={setUserInput}
+            userInput={userInput} 
             handleUserInput={handleUserInput} 
           />
-          
-          {notification}
-
+          <p>{notification}</p>
         </section>
 
         <section>
-          <h3>Matching Users:</h3>
+          <h3>User List:</h3>
           <UsersList users={users}/>
         </section>
-
-
       </main>
+
     </div>
   );
 }

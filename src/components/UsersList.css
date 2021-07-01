@@ -1,8 +1,17 @@
 .users-grid {
   display: grid;
-  grid-template-columns: 1fr 2fr 1fr 1fr 1fr 1fr 1fr;
-  width: 100vw;
+  grid-template-columns: 1fr 1.5fr 1fr 1fr 1fr 1fr 1fr;
+  width: 100%;
   justify-content: center;
   align-items: center;
   text-align: center;
+}
+
+.users-grid:hover {
+  background-color: gray;
+}
+
+.users-grid-container {
+  border: 1px solid black;
+  padding: 1rem;
 }
