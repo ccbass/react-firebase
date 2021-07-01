@@ -22,5 +22,5 @@
   },
   "include": [
     "src"
-, "__tests__/App.test.js", "__tests__/github-utils.test.tsx"  ]
+, "src/components/App.test.js", "src/utilities/github-utils.test.js"  ]
 }
